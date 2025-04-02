@@ -1,14 +1,14 @@
 
 
 # 简介
-   本程序使用C++在Linux环境编写、运行，通过两个USB2CAN模块使Linux系统电脑拓展4路CAN总线，每条总线挂载3个达妙电机，程序可以以1000hz的频率控制共计12个达妙电机，适用于一般四足机器人控制底层。
+   本程序使用C++在Linux环境编写、运行，通过两个USB2FDCAN模块使Linux系统电脑拓展4路CAN总线，每条总线挂载3个达妙电机，程序可以以1000hz的频率控制共计12个达妙电机，适用于一般四足机器人控制底层。
 
 
 # 前期准备
-本程序需要与肥猫机器人公司USB2CAN模块配合使用，请准备好模块与模块说明书、模块SDK，`并按照说明书使用install.sh文件安装USB2CAN规则文件，或手动安装规则文件，安装方法：`
+本程序需要与肥猫机器人公司USB2FDCAN模块配合使用,注意不要买成USB2CAN，请准备好模块与模块说明书、模块SDK，`并按照说明书使用install.sh文件安装USB2FDCAN规则文件，或手动安装规则文件，安装方法：`
 1. 进入项目目录下的can文件夹
 ```bash
-cd USB2CAN-Demo-DM/can
+cd USB2FDCAN-Demo-DM/can
 ```
 2. 复制规则文件usb_can.rules 到/etc/udev/rules.d/
 ```bash
@@ -23,17 +23,19 @@ sudo udevadm trigger
 >CAN ID为0x01的电机,其Master ID设置为0x11
 >CAN ID为0x02的电机,其Master ID设置为0x22
 >CAN ID为0x03的电机,其Master ID设置为0x33
+>若要添加电机以此类推
 >请提前使用达妙上位机设置好电机 CAN ID与Master ID，并确保电机ID与Master ID对应关系与程序中一致，否则程序将无法正常工作。
 
->注意：电机CAN口与USB2CAN模块CAN口线序相反，请用反序CAN连接。
+>注意：电机CAN口与USB2FDCAN模块CAN口线序相反，请用反序CAN连接。
 
 >     使用前请提前开启达妙电机120欧电阻，否则无法正常工作。
 
-```USB转2路CAN模块购买地址：```
+```USB转2路FDCAN模块购买地址：```
 
 https://e.tb.cn/h.TBC18sl6EZKXUjL?tk=C5g5eLgyMf6HU071
 
 ```说明书以及SDK下载地址：```
+
 https://pan.baidu.com/s/1EwYDNQ0jMKyTSvJEEcj6aw?pwd=10ob
 
 ```达妙电机购买地址：```
@@ -45,11 +47,11 @@ https://e.tb.cn/h.64misbVFgC99Sp6?tk=eKKrex5NSR0CZ193
 # 安装
 1. 克隆仓库到本地 :
 ```bash
-git clone https://github.com/SOULDE-Studio/USB2CAN-Demo-DM.git
+git clone https://github.com/SOULDE-Studio/USB2FDCAN-Demo-DM.git
 ```
 2. 进入项目目录 :
 ```bash
-cd USB2CAN-Demo-DM
+cd USB2FDCAN-Demo-DM
 ```
 3. 编译项目 :
 ```bash
@@ -65,8 +67,8 @@ make
 
 
 # 注意事项
-1. 本程序使用的两个USB2CAN模块其设备名称分别为USB2CAN0、USB2CAN1
-2. 若还需要拓展多个USB2CAN模块，可在本程序基础上进行修改，一个电脑最多拓展4个模块即8路CAN总线。
+1. 本程序使用的两个USB2FDCAN模块其设备名称分别为USB2CAN0、USB2CAN1
+2. 若还需要拓展多个USB2FDCAN模块，可在本程序基础上进行修改，一个电脑最多拓展4个模块即8路CAN总线。
 3. 在同一模块的同一条CAN总线发送的控制命令间隔不应小于300us，可以交错发送不同CAN总线上的控制命令
 4. 程序封装了电机数据结构体，只需要对结构体对象赋值再调用发送函数，即可控制电机，赋值数值范围请参考DM电机说明书
 5. 本程序使用达妙DM-J10010L-2EC电机，如使用其他型号电机请修改头文件`include/Tangair_usb2can.h`参数。
@@ -90,10 +92,10 @@ make
 Please cite the following if you use this code or parts of it:
 
 ```
-@software{tangair2025USB2CAN-Demo-DM,
+@software{tangair2025USB2FDCAN-Demo-DM,
   author = {tangair},
-  title = {{USB2CAN-Demo-DM: An  project based on USB2CAN and DM motor.}},
-  url = {https://github.com/SOULDE-Studio/USB2CAN-Demo-DM.git},
+  title = {{USB2FDCAN-Demo-DM: An  project based on USB2CAN and DM motor.}},
+  url = {https://github.com/SOULDE-Studio/USB2FDCAN-Demo-DM.git},
   year = {2025}
 }
 ```
