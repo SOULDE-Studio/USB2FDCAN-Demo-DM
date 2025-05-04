@@ -18,7 +18,7 @@ link_directories (${PROJECT_SOURCE_DIR}/can)
 add_executable(can_node src/Tangair_usb2can.cpp src/can_node.cpp)
 target_link_libraries(can_node 
 pthread
-usb_can
+usb_fdcan
 ${CMAKE_THREAD_LIBS_INIT}  
 ${CMAKE_DL_LIBS}
 )

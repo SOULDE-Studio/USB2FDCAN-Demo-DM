@@ -31,6 +31,13 @@ Tangair_usb2can::Tangair_usb2can()
         std::cout << std::endl
                   << "USB2CAN0 opened ,num=" << USB2CAN0_ << std::endl;
 
+    int ret0 = configUSBCAN(USB2CAN0_, 1, FDCAN, FDCAN_500K, FDCAN_4M);
+    std::cout << ret0 << std::endl;
+    ret0 = configUSBCAN(USB2CAN0_, 2, FDCAN, FDCAN_500K, FDCAN_4M);
+    std::cout << ret0 << std::endl;
+
+
+
     USB2CAN1_ = openUSBCAN("/dev/USB2CAN1");
     if (USB2CAN1_ == -1)
         std::cout << std::endl
@@ -38,11 +45,17 @@ Tangair_usb2can::Tangair_usb2can()
     else
         std::cout << std::endl
                   << "USB2CAN1 opened ,num=" << USB2CAN1_ << std::endl;
+    
+    int ret1 = configUSBCAN(USB2CAN1_, 1, FDCAN, FDCAN_500K, FDCAN_4M);
+    std::cout << ret1 << std::endl;
+    ret1 = configUSBCAN(USB2CAN1_, 2, FDCAN, FDCAN_500K, FDCAN_4M);
+    std::cout << ret1 << std::endl;
+
+   
 
     // 电机ID配置
     USB2CAN_CAN_Bus_Init();
-
-    
+  
     // 启动成功
     std::cout << std::endl
               << "USB2CAN   NODE INIT__OK   by TANGAIR" << std::endl
@@ -528,7 +541,7 @@ void Tangair_usb2can::CAN_Send_Control(int32_t dev, uint8_t channel, Motor_CAN_S
     FrameInfo txMsg_Control = {
         .canID = Motor_Data->id,
         .frameType = STANDARD,
-        .dataLength = 8,
+        .dataLength = FDCAN_8BYTES,
     };
     uint8_t Data_CAN_Control[8];
 
