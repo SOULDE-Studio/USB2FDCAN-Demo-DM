@@ -324,7 +324,7 @@ void Tangair_usb2can::CAN_TX_test_thread()
         std::chrono::time_point_cast<std::chrono::microseconds>(std::chrono::system_clock::now());
     time_t tp_lst = tpMill.time_since_epoch().count();;
     //键盘输入速度
-    speed_input = 190;
+    speed_input = 150;
     //电机控制参数配置，单纯给速度
     {
         
