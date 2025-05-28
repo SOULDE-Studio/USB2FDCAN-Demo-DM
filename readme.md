@@ -34,6 +34,7 @@ sudo udevadm trigger
 2. 电机驱动固件更新：
 
 3. 电机CAN波特率修改：
+电机波特率需使用读写寄存器修改，参照v15更新说明https://gl1po2nscb.feishu.cn/file/RVvfbAAf0oIFxQxncbRckER8nye
 
 
 4. 电机注意事项：
