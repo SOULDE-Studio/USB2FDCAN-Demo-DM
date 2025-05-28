@@ -18,17 +18,26 @@ sudo cp usb_can.rules /etc/udev/rules.d/
 ```bash
 sudo udevadm trigger
 ```
-
+# 达妙电机说明
+1. 电机ID设置：
 >DM电机通过达妙上位机设置被控电机ID，即CAN ID，以及电机反馈报文ID ,即Master ID（默认为0），为了避免反馈帧冲突，本程序建立电机ID与反馈ID对应关系
 >CAN ID为0x01的电机,其Master ID设置为0x11
 >CAN ID为0x02的电机,其Master ID设置为0x22
 >CAN ID为0x03的电机,其Master ID设置为0x33
+
 >若要添加电机以此类推
+
 >请提前使用达妙上位机设置好电机 CAN ID与Master ID，并确保电机ID与Master ID对应关系与程序中一致，否则程序将无法正常工作。
 
->注意：电机CAN口与USB2FDCAN模块CAN口线序相反，请用反序CAN连接。
+2. 电机驱动固件更新：
 
->     使用前请提前开启达妙电机120欧电阻，否则无法正常工作。
+3. 电机CAN波特率修改：
+电机波特率需使用读写寄存器修改，参照v15更新说明https://gl1po2nscb.feishu.cn/file/RVvfbAAf0oIFxQxncbRckER8nye
+
+
+4. 电机注意事项：
+>电机CAN口与USB2FDCAN模块CAN口线序相反，请用反序CAN连接。
+>使用前请提前开启达妙电机120欧电阻，否则无法正常工作。
 
 ```USB转2路FDCAN模块购买地址：```
 
