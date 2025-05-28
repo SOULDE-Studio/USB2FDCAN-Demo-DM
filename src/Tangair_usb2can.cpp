@@ -31,9 +31,9 @@ Tangair_usb2can::Tangair_usb2can()
         std::cout << std::endl
                   << "USB2CAN0 opened ,num=" << USB2CAN0_ << std::endl;
 
-    int ret0 = configUSBCAN(USB2CAN0_, 1, FDCAN, FDCAN_1M, FDCAN_2M);
+    int ret0 = configUSBCAN(USB2CAN0_, 1, FDCAN, FDCAN_1M, FDCAN_4M);
     std::cout << ret0 << std::endl;
-    ret0 = configUSBCAN(USB2CAN0_, 2, FDCAN, FDCAN_1M, FDCAN_2M);
+    ret0 = configUSBCAN(USB2CAN0_, 2, FDCAN, FDCAN_1M, FDCAN_4M);
     std::cout << ret0 << std::endl;
 
 
@@ -47,9 +47,9 @@ Tangair_usb2can::Tangair_usb2can()
                   << "USB2CAN1 opened ,num=" << USB2CAN1_ << std::endl;
     
     //配置fdcan
-    int ret1 = configUSBCAN(USB2CAN1_, 1, FDCAN, FDCAN_1M, FDCAN_2M);
+    int ret1 = configUSBCAN(USB2CAN1_, 1, FDCAN, FDCAN_1M, FDCAN_4M);
     std::cout << ret1 << std::endl;
-    ret1 = configUSBCAN(USB2CAN1_, 2, FDCAN, FDCAN_1M, FDCAN_2M);
+    ret1 = configUSBCAN(USB2CAN1_, 2, FDCAN, FDCAN_1M, FDCAN_4M);
     std::cout << ret1 << std::endl;
 
    
@@ -324,7 +324,7 @@ void Tangair_usb2can::CAN_TX_test_thread()
         std::chrono::time_point_cast<std::chrono::microseconds>(std::chrono::system_clock::now());
     time_t tp_lst = tpMill.time_since_epoch().count();;
     //键盘输入速度
-    speed_input = 150;
+    speed_input = 140;
     //电机控制参数配置，单纯给速度
     {
         
