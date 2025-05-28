@@ -47,9 +47,9 @@ Tangair_usb2can::Tangair_usb2can()
                   << "USB2CAN1 opened ,num=" << USB2CAN1_ << std::endl;
     
     //配置fdcan
-    int ret1 = configUSBCAN(USB2CAN1_, 1, FDCAN, FDCAN_1M, FDCAN_4M);
+    int ret1 = configUSBCAN(USB2CAN1_, 1, FDCAN, FDCAN_1M, FDCAN_2M);
     std::cout << ret1 << std::endl;
-    ret1 = configUSBCAN(USB2CAN1_, 2, FDCAN, FDCAN_1M, FDCAN_4M);
+    ret1 = configUSBCAN(USB2CAN1_, 2, FDCAN, FDCAN_1M, FDCAN_2M);
     std::cout << ret1 << std::endl;
 
    
@@ -148,36 +148,13 @@ void Tangair_usb2can::CAN_RX_device_0_thread()
 
             if (channel == 1) // 模块0，can1
             {
-                //  std::cout << "info_rx.master ID=" << info_rx.canID << std::endl;
-                // std::cout << "info_rx.CAN ID=" << (int)(data_rx[0]|(data_rx[1]<<8)) << std::endl;
-                // std::cout << "info_rx.CAN data2=" << (int)data_rx[2] << std::endl;
-                // std::cout << "info_rx.CAN data3=" << (int)data_rx[3] << std::endl;
-                // std::cout << "info_rx.CAN data4=" << (int)(data_rx[4]|(data_rx[5]<<8)|(data_rx[6]<<16)|(data_rx[7]<<24)) << std::endl;
+                 std::cout << "info_rx.master ID=" << info_rx.canID << std::endl;
+                std::cout << "info_rx.CAN ID=" << (int)(data_rx[0]|(data_rx[1]<<8)) << std::endl;
+                std::cout << "info_rx.CAN data2=" << (int)data_rx[2] << std::endl;
+                std::cout << "info_rx.CAN data3=" << (int)data_rx[3] << std::endl;
+                std::cout << "info_rx.CAN data4=" << (int)(data_rx[4]|(data_rx[5]<<8)|(data_rx[6]<<16)|(data_rx[7]<<24)) << std::endl;
         
-                switch (info_rx.canID)
-                {
-                case 0X11:
-                {
-                    USB2CAN0_CAN_Bus_1.ID_1_motor_recieve = CAN_DEV0_RX;
-                   
-                    break;
-                }
-                case 0X22:
-                {
-                    USB2CAN0_CAN_Bus_1.ID_2_motor_recieve = CAN_DEV0_RX;
-                   
-                    break;
-                }
-                case 0X33:
-                {
-                    USB2CAN0_CAN_Bus_1.ID_3_motor_recieve = CAN_DEV0_RX;
-                    
-                    break;
-                }
-             
-                default:
-                    break;
-                }
+              
             }
             else if (channel == 2) // 模块0，can2
             {
@@ -390,53 +367,28 @@ void Tangair_usb2can::CAN_TX_test_thread()
         USB2CAN1_CAN_Bus_2.ID_3_motor_send.kd = 1;
     }
    
-    //使能所有电机
-    ENABLE_ALL_MOTOR(100);
 
-    //  Motor_Config(USB2CAN0_, 1, &USB2CAN0_CAN_Bus_1.ID_2_motor_send);
-    //  std::this_thread::sleep_for(std::chrono::microseconds(5000)); // 单位us
 
-    //  Motor_Save(USB2CAN0_, 1, &USB2CAN0_CAN_Bus_1.ID_2_motor_send);
-    //  std::this_thread::sleep_for(std::chrono::microseconds(5000)); // 单位us
+     Motor_Config(USB2CAN0_, 1, &USB2CAN0_CAN_Bus_1.ID_2_motor_send);
+     std::this_thread::sleep_for(std::chrono::microseconds(5000)); // 单位us
+
+     Motor_Save(USB2CAN0_, 1, &USB2CAN0_CAN_Bus_1.ID_2_motor_send);
+     std::this_thread::sleep_for(std::chrono::microseconds(5000)); // 单位us
 
     while (running_)
     {
-        //电机控制参数配置，单纯给速度，给ID为1的电机，设置键盘速度，速度单位为rad/s
-        if (abs((int)speed_input) < 50)
-        {
-            USB2CAN0_CAN_Bus_1.ID_1_motor_send.speed = (int)speed_input;
-            USB2CAN0_CAN_Bus_2.ID_1_motor_send.speed = (int)speed_input;
-            USB2CAN1_CAN_Bus_1.ID_1_motor_send.speed = (int)speed_input;
-            USB2CAN1_CAN_Bus_2.ID_1_motor_send.speed = (int)speed_input;
-            
-        }
+      
+
+         Motor_Read(USB2CAN0_, 1, &USB2CAN0_CAN_Bus_1.ID_2_motor_send);
+         std::this_thread::sleep_for(std::chrono::microseconds(5000)); // 单位us
 
    
-       
-        // CAN发送,发送频率为1298.7hz,实际间隔约为770us
-        CAN_TX_ALL_MOTOR(60);
-            
+   
 
         // CAN发送计数
         tx_count++;
       
     
-        std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> tpMill =
-            std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now());
-        time_t tp = tpMill.time_since_epoch().count();
-
-        // 打印数据tp时间ms，1000hz的控制频率的话，1s一次，
-        if (tx_count % 1000 == 0)
-        {
-            std::cout << std::endl
-                      << "USB2CAN0_CAN1.current_speed_f=  " << USB2CAN0_CAN_Bus_1.ID_1_motor_recieve.current_speed_f << "  rad/s" << std::endl
-                      << "USB2CAN0_CAN1——2.current_speed_f=  " << USB2CAN0_CAN_Bus_1.ID_2_motor_recieve.current_speed_f << "  rad/s" << std::endl
-                      << "USB2CAN0_CAN2.current_speed_f=  " << USB2CAN0_CAN_Bus_2.ID_1_motor_recieve.current_speed_f << "  rad/s" << std::endl
-                      << "USB2CAN1_CAN1.current_speed_f=  " << USB2CAN1_CAN_Bus_1.ID_1_motor_recieve.current_speed_f << "  rad/s" << std::endl
-                      << "USB2CAN1_CAN2.current_speed_f=  " << USB2CAN1_CAN_Bus_2.ID_1_motor_recieve.current_speed_f << "  rad/s" << std::endl;
-            std::cout << "can_tx_count=" << tx_count << "     " << "can_dev0_rx_count=" << can_dev0_rx_count << "     "<< "can_dev1_rx_count=" << can_dev1_rx_count << "     "
-                      << "TIME=" << (tp % 1000000) / 1000 << "." << tp % 1000 << "s" << std::endl;
-        }
     }
 
     //程序终止时的提示信息
