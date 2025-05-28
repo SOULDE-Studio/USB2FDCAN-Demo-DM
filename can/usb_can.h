@@ -18,6 +18,10 @@ enum FDCAN_Speed {
     FDCAN_2M,
     FDCAN_4M
 };
+enum CAN_Speed {
+    CAN_500K = 0,
+    CAN_1M
+};
 enum DLC {
     FDCAN_0BYTES = 0,
     FDCAN_1BYTES,

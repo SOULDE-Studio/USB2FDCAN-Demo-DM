@@ -177,6 +177,12 @@ public:
 	void USB2CAN_CAN_Bus_inti_set(USB2CAN_CAN_Bus_Struct* Leg_Data);
 	void USB2CAN_CAN_Bus_Init();
 
+	void Motor_Config(int32_t dev, uint8_t channel, Motor_CAN_Send_Struct *Motor_Data);
+
+	void Motor_Save(int32_t dev, uint8_t channel, Motor_CAN_Send_Struct *Motor_Data);
+
+	void Motor_Read(int32_t dev, uint8_t channel, Motor_CAN_Send_Struct *Motor_Data);
+
 	void Motor_Enable(int32_t dev, uint8_t channel, Motor_CAN_Send_Struct *Motor_Data);
 
 	void Motor_Disable(int32_t dev, uint8_t channel, Motor_CAN_Send_Struct *Motor_Data);
