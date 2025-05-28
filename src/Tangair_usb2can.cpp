@@ -47,9 +47,9 @@ Tangair_usb2can::Tangair_usb2can()
                   << "USB2CAN1 opened ,num=" << USB2CAN1_ << std::endl;
     
     //配置fdcan
-    int ret1 = configUSBCAN(USB2CAN1_, 1, FDCAN, FDCAN_500K, FDCAN_4M);
+    int ret1 = configUSBCAN(USB2CAN1_, 1, FDCAN, FDCAN_1M, FDCAN_4M);
     std::cout << ret1 << std::endl;
-    ret1 = configUSBCAN(USB2CAN1_, 2, FDCAN, FDCAN_500K, FDCAN_4M);
+    ret1 = configUSBCAN(USB2CAN1_, 2, FDCAN, FDCAN_1M, FDCAN_4M);
     std::cout << ret1 << std::endl;
 
    
