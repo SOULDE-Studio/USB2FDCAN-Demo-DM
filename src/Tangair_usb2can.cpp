@@ -324,7 +324,7 @@ void Tangair_usb2can::CAN_TX_test_thread()
         std::chrono::time_point_cast<std::chrono::microseconds>(std::chrono::system_clock::now());
     time_t tp_lst = tpMill.time_since_epoch().count();;
     //键盘输入速度
-    speed_input = 140;
+    speed_input = 80;
     //电机控制参数配置，单纯给速度
     {
         
@@ -410,12 +410,12 @@ void Tangair_usb2can::CAN_TX_test_thread()
         // CAN发送计数
         tx_count++;
 
-         CAN_Send_Control(USB2CAN0_, 1, &USB2CAN0_CAN_Bus_1.ID_2_motor_send);
+         CAN_Send_Control(USB2CAN0_, 1, &USB2CAN0_CAN_Bus_1.ID_1_motor_send);
          std::this_thread::sleep_for(std::chrono::microseconds(speed_input));
           
         if (tx_count % 10000 == 0)
         {
-            if(speed_input>100)
+            if(speed_input>30)
               speed_input--;  
         }
        
