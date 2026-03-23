@@ -413,8 +413,8 @@ void Tangair_usb2can::CAN_TX_test_thread()
 
    
        
-        // CAN发送,发送频率为1298.7hz,实际间隔约为770us
-        CAN_TX_ALL_MOTOR(60);
+        // CAN发送,发送频率为2000hz,实际间隔约为480us
+        CAN_TX_ALL_MOTOR(40);
             
 
         // CAN发送计数
