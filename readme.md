@@ -29,10 +29,10 @@ sudo udevadm trigger
 
 >请提前使用达妙上位机设置好电机 CAN ID与Master ID，并确保电机ID与Master ID对应关系与程序中一致，否则程序将无法正常工作。
 
-2. 电机驱动固件更新：
+2. 电机驱动固件更新:更新为/达妙电机资料/文件夹下的固件版本以上，或直接更新到最新版本
 
 3. 电机CAN波特率修改：
-电机波特率需使用读写寄存器修改，参照v15更新说明https://gl1po2nscb.feishu.cn/file/RVvfbAAf0oIFxQxncbRckER8nye
+电机波特率修改见/达妙电机资料/文件夹下的视频。
 
 
 4. 电机注意事项：

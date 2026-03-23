@@ -15,7 +15,7 @@
 #include <thread>
 #include <sched.h>
 #include <unistd.h>
-#include "usb_can.h"
+#include "usb_fdcan.h"
 
 
 // 辅助函数
