@@ -21,21 +21,18 @@ sudo udevadm trigger
 # 达妙电机说明
 1. 电机ID设置：
 >DM电机通过达妙上位机设置被控电机ID，即CAN ID，以及电机反馈报文ID ,即Master ID（默认为0），为了避免反馈帧冲突，本程序建立电机ID与反馈ID对应关系
-
 >CAN ID为0x01的电机,其Master ID设置为0x11
-
 >CAN ID为0x02的电机,其Master ID设置为0x22
-
 >CAN ID为0x03的电机,其Master ID设置为0x33
 
 >若要添加电机以此类推
 
 >请提前使用达妙上位机设置好电机 CAN ID与Master ID，并确保电机ID与Master ID对应关系与程序中一致，否则程序将无法正常工作。
 
-2. 电机驱动固件更新：
+2. 电机驱动固件更新:更新为/达妙电机资料/文件夹下的固件版本以上，或直接更新到最新版本
 
 3. 电机CAN波特率修改：
-电机波特率需使用读写寄存器修改，参照v15更新说明https://gl1po2nscb.feishu.cn/file/RVvfbAAf0oIFxQxncbRckER8nye
+电机波特率修改见/达妙电机资料/文件夹下的视频。
 
 
 4. 电机注意事项：
